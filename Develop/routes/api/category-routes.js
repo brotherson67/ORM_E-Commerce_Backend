@@ -4,47 +4,35 @@ const { Category, Product } = require('../../models');
 // The `/api/categories` endpoint
   // find all categories
   // be sure to include its associated Products
-  router.get('/', (req, res) => {
-    Category.findAll({
-      include: [
-        {
-          model: Product,
-          attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
-        }
-      ]
-    })
-      .then(dbCategoryData => res.json(dbCategoryData))
-      .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  });
+router.get('/', (req, res) => {
+  Category.findAll({
+  })
+    .then(dbCategoryData => res.json(dbCategoryData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
-  router.get('/:id', (req, res) => {
-    // find a single product by its `id`
-    Category.findOne({
-      where: {
-        id: req.params.id
-      },
-      include: [
-        {
-          model: Product,
-          attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
-        }
-      ]
-    })
-      .then(dbCategoryData => {
-        if (!dbCategoryData) {
-          res.status(400).json({ message: "No Category found with this ID! "});
-          return;
-        }
-        res.json(dbCategoryData)
-    })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  });
+router.get('/:id', (req, res) => {
+  // find a single product by its `id`
+  Category.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(dbCategoryData => {
+      if (!dbCategoryData) {
+        res.status(400).json({ message: "No Category found with this ID! "});
+        return;
+      }
+      res.json(dbCategoryData)
+  })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
 router.post('/', (req, res) => {
   Category.create({
@@ -58,7 +46,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  Category.update(
+  Category.update(req.body
     {
       where: {
         id: req.body.id
