@@ -51,8 +51,14 @@ router.put('/:id', (req, res) => {
   })
   .then(dbUserData => {
     if (!dbUserData) {
-      res.status(404).json({ message: 'No tag id found' })
+      res.status(404).json({ message: 'No tag id found' });
+      return;
     }
+    res.json(dbUserData);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err)
   })
 });
 
