@@ -46,7 +46,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  Category.update(req.body
+  Category.update(req.body,
     {
       where: {
         id: req.body.id
