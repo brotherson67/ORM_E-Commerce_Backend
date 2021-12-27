@@ -6,7 +6,7 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
   // be sure to include its associated Category and Tag data
 router.get('/', (req, res) => {
   Product.findAll(
-    
+
   )
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
@@ -21,17 +21,7 @@ router.get('/:id', (req, res) => {
   Product.findOne({
     where: {
       id: req.params.id
-    },
-    include: [
-      {
-        model: Category,
-        attributes: ['id', 'category_name'],
-      },
-      {
-        model: Tag,
-        attributes: ['id', 'tag_name']
-      }
-    ]
+    }
   })
     .then(dbPostData => {
       if (!dbPostData) {
@@ -47,16 +37,16 @@ router.get('/:id', (req, res) => {
 });
 
 // create new product
-router.post('/', (req, res) => {
-  /* req.body should look like this...
-    {
-      product_name: "Basketball",
-      price: 200.00,
-      stock: 3,
-      tagIds: [1, 2, 3, 4]
-    }
-  */
-});
+// router.post('/', (req, res) => {
+//   /* req.body should look like this...
+//     {
+//       product_name: "Basketball",
+//       price: 200.00,
+//       stock: 3,
+//       tagIds: [1, 2, 3, 4]
+//     }
+//   */
+// });
 
 // update product
 router.put('/:id', (req, res) => {
